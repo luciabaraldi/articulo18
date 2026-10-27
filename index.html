@@ -417,6 +417,189 @@ body{font-family:var(--tipo)}
   #portada .portada-copy p:nth-child(2),#portada .portada-copy p:nth-child(4){display:block}
 }
 
+
+
+/* ============================================================
+   ARTICULO 18 | AJUSTES RESPONSIVOS
+   Desktop conserva la composicion original.
+   Mobile mantiene una sola pantalla y permite leer el relato
+   completo en una capa independiente.
+   ============================================================ */
+canvas#lienzo{touch-action:none}
+.portada-mobile-text,.portada-conocer{display:none}
+.proyecto-modal[hidden]{display:none!important}
+.proyecto-modal{
+  position:absolute;z-index:9;inset:0;display:flex;justify-content:center;
+  align-items:center;padding:24px;background:rgba(0,0,0,.86);
+  backdrop-filter:blur(8px);
+}
+.proyecto-dialogo{
+  width:min(710px,100%);max-height:min(84dvh,780px);overflow:auto;
+  overscroll-behavior:contain;scrollbar-color:#555 transparent;
+  background:#0d0e0e;border:1px solid #555;border-radius:12px;
+  padding:clamp(22px,4vw,42px);box-shadow:0 30px 90px #000;
+}
+.proyecto-cabecera{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px}
+.proyecto-cabecera .proyecto-etiqueta{color:#999;font-size:11px;letter-spacing:.17em;margin:0 0 7px}
+.proyecto-cabecera h2{margin:0;color:#fff;font-size:clamp(25px,4vw,36px);letter-spacing:-.055em;line-height:1.1}
+.proyecto-cerrar{flex-shrink:0;cursor:pointer;border:1px solid #666;background:transparent;color:white;width:39px;height:39px;border-radius:5px;font-size:25px}
+.proyecto-texto{font-size:15px;line-height:1.67;color:#e2e2e2}
+.proyecto-texto p{margin:0 0 18px}
+.proyecto-texto strong{color:white}
+.proyecto-nota{padding:12px 0 12px 16px;margin-top:18px;border-left:2px solid #888;color:#bdbdbd;font-size:14px;line-height:1.6}
+
+/* Breakpoint tablet/mobile: una portada mas compacta y controles tactiles. */
+@media (max-width:860px){
+  :root{color-scheme:dark}
+  #portada{background:#080909}
+  #portada .portada-dibujo{
+    display:block;top:-24px;right:-93px;left:auto;
+    width:max(520px,140vw);height:auto;object-fit:contain;
+    opacity:.95;filter:none;
+  }
+  #portada::after{
+    content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(to bottom,rgba(8,9,9,.02) 0%,rgba(8,9,9,.06) 13%,rgba(8,9,9,.5) 31%,#080909 49%,#080909 100%);
+  }
+  #portada .portada-grid{
+    width:100%;height:100dvh;min-height:0;margin:0;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    align-items:stretch;
+    padding:20px 26px max(50px, calc(env(safe-area-inset-bottom) + 35px));
+  }
+  #portada .portada-izq{width:100%;max-width:560px;min-width:0;margin:0 auto;align-items:stretch}
+  #portada .portada-tag{order:1;font-size:10px;line-height:1.35;letter-spacing:.16em;margin:0 0 11px}
+  #portada .portada-izq h1{order:2;font-size:clamp(37px,10.8vw,56px);line-height:1.03;margin:0 0 8px;white-space:nowrap;letter-spacing:-.06em}
+  #portada .portada-sub{order:3;font-size:clamp(14px,3.8vw,18px);line-height:1.36;margin:0 0 25px;white-space:normal}
+  #portada .portada-mobile-text{order:4;display:block;color:#e4e4e4;font-size:clamp(14px,3.7vw,17px);line-height:1.5;max-width:43ch}
+  #portada .portada-mobile-text p{margin:0 0 12px}
+  #portada .portada-mobile-text p:last-child{margin-bottom:0}
+  #portada .portada-mobile-text strong{color:#fff;font-weight:700}
+  #portada .portada-actions{order:5;display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin:27px 0 17px}
+  #portada .portada-cta{font-size:15px;padding:15px 21px;min-height:51px;border-radius:7px;white-space:nowrap}
+  #portada .portada-secundario{font-size:14px;white-space:nowrap}
+  #portada .portada-conocer{order:6;display:inline-flex;align-self:flex-start;gap:9px;align-items:center;padding:4px 0;cursor:pointer;border:0;border-bottom:1px solid #8e8e8e;background:transparent;color:#d5d5d5;font:500 13px/1.4 var(--tipo)}
+  #portada .portada-conocer:hover{color:#fff;border-color:#fff}
+  #portada .portada-copy,#portada .portada-principio{display:none!important}
+  #portada .portada-pie{display:none}
+  .datos-modal,.proyecto-modal{padding:12px;align-items:center}
+  .datos-dialogo,.proyecto-dialogo{max-height:calc(100dvh - 30px);padding:24px 20px;border-radius:10px}
+  .datos-dialogo section p,.datos-intro{font-size:14px;line-height:1.65}
+
+  /* El muro sigue siendo el mismo, con herramientas adaptadas a pulgares. */
+  .marca{top:max(12px,env(safe-area-inset-top));left:16px;right:16px;max-width:calc(100vw - 32px)}
+  .marca h1{font-size:23px;line-height:1.06}
+  .marca p{font-size:9px;line-height:1.5;letter-spacing:.045em;max-width:calc(100vw - 36px)}
+  .buscador{top:78px;left:16px;right:16px;transform:none;width:auto}
+  .buscador input{min-height:42px;border-radius:6px;font-size:14px;padding:11px 13px}
+  .sugerencias{top:44px;max-height:min(40dvh,310px)}
+  .riel{
+    top:auto;left:50%;bottom:max(12px,env(safe-area-inset-bottom));
+    transform:translateX(-50%);flex-direction:row;gap:5px;
+    padding:5px;background:rgba(5,5,5,.92);border:1px solid #343434;
+    border-radius:11px;max-width:calc(100vw - 12px);
+  }
+  .riel button{width:38px;height:42px;flex-shrink:0;border-radius:6px;font-size:16px;background:#111}
+  .riel button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+  .capa{
+    left:12px;right:12px;bottom:calc(max(12px,env(safe-area-inset-bottom)) + 68px);
+    top:auto;transform:none;width:auto;max-height:calc(100dvh - 195px);
+    border-radius:9px;padding:16px;
+  }
+  .capa button{padding:10px 10px;font-size:14px}
+  .ficha{
+    left:0;right:0;top:auto;bottom:0;
+    width:100%;height:min(78dvh,730px);max-height:calc(100dvh - 56px);
+    padding:23px 22px max(24px,env(safe-area-inset-bottom));
+    border-left:0;border-top:1px solid #666;
+    border-radius:18px 18px 0 0;
+    transform:translateY(105%);transition:transform .24s ease;
+    box-shadow:0 -14px 45px #000;
+    overscroll-behavior:contain;
+  }
+  .ficha.abierta{transform:translateY(0)}
+  .ficha .cerrar{top:14px;right:18px;width:34px;height:34px;font-size:24px}
+  .ficha h2{max-width:calc(100% - 48px)}
+  .ficha td{font-size:13px;line-height:1.55;padding:7px 0}
+  .ficha td:last-child{max-width:55vw;white-space:normal;overflow-wrap:anywhere}
+  .leyenda{left:16px;right:16px;bottom:86px;text-align:left;max-width:none;font-size:10px}
+  .flotante{display:none!important}
+  .pista-zoom{bottom:calc(max(12px,env(safe-area-inset-bottom)) + 72px);width:calc(100vw - 32px);padding:14px 42px 15px 15px;border-radius:9px}
+  .pista-zoom strong{font-size:16px}
+  .pista-zoom p{font-size:12px;line-height:1.48}
+  .relato .texto{bottom:22dvh;padding:0 7vw}
+  .relato .pista{bottom:13dvh}
+  .relato .regla{bottom:17dvh}
+}
+@media (max-width:410px){
+  #portada .portada-grid{padding-left:24px;padding-right:24px}
+  #portada .portada-actions{gap:14px}
+  #portada .portada-cta{font-size:13px;padding:13px 14px;min-height:46px}
+  #portada .portada-secundario{font-size:13px}
+  .riel{gap:3px;padding:4px}
+  .riel button{width:36px;height:40px}
+}
+@media (max-width:360px){
+  #portada .portada-grid{padding-left:20px;padding-right:20px;padding-bottom:39px}
+  #portada .portada-izq h1{font-size:clamp(32px,10.2vw,37px)}
+  #portada .portada-actions{gap:9px}
+  #portada .portada-cta{font-size:12px;padding:12px 11px}
+  #portada .portada-secundario{font-size:12px}
+  #portada .portada-mobile-text{font-size:13px}
+  .riel{gap:2px;padding:3px}
+  .riel button{width:35px;height:39px}
+}
+/* Pantallas bajas: mas espacio para el dibujo sin recortar la historia. */
+@media (max-width:860px) and (max-height:740px){
+  #portada .portada-grid{padding-bottom:max(22px,env(safe-area-inset-bottom) + 18px)}
+  #portada .portada-tag{margin-bottom:7px;font-size:9px}
+  #portada .portada-izq h1{font-size:clamp(33px,9.2vw,46px);margin-bottom:5px}
+  #portada .portada-sub{margin-bottom:15px;font-size:clamp(13px,3.6vw,16px)}
+  #portada .portada-mobile-text{font-size:clamp(12px,3.45vw,15px);line-height:1.43}
+  #portada .portada-mobile-text p{margin-bottom:7px}
+  #portada .portada-actions{margin:17px 0 10px}
+  #portada .portada-cta{min-height:43px;padding:11px 15px}
+  #portada .portada-conocer{font-size:12px}
+}
+@media (max-width:860px) and (max-height:560px){
+  #portada .portada-dibujo{width:70vw;right:-30px;top:-10vh;opacity:.55}
+  #portada::after{background:linear-gradient(90deg,#080909 0%,rgba(8,9,9,.94) 45%,rgba(8,9,9,.4) 100%)}
+  #portada .portada-grid{justify-content:center;padding:14px 26px}
+  #portada .portada-izq{max-width:520px;margin:0 auto}
+  #portada .portada-sub{margin-bottom:10px}
+  #portada .portada-mobile-text p:last-child{display:none}
+  #portada .portada-actions{margin:11px 0 7px}
+  #portada .portada-tag{margin-bottom:4px}
+}
+@media (prefers-reduced-motion:reduce){.ficha{transition:none}}
+
+
+/* Claridad narrativa de la primera visita al muro y referencias académicas. */
+.datos-investigaciones{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:9px}
+.datos-investigaciones li{padding:11px 14px;background:#151515;border:1px solid #303030;border-radius:6px;font-size:13px;line-height:1.55}
+.datos-investigaciones a{display:block;color:#fff;text-decoration:underline;text-decoration-color:#737373;text-underline-offset:4px;overflow-wrap:anywhere}
+.datos-investigaciones a:hover,.datos-investigaciones a:focus-visible{text-decoration-color:white}
+.datos-dialogo section strong{font-weight:700;color:#e8e8e8}
+.pista-zoom{width:min(530px,calc(100vw - 40px));padding:20px 48px 18px 21px;
+  border-color:#666;background:rgba(8,8,8,.985);border-radius:8px}
+.pista-zoom small{letter-spacing:.105em;font-size:10px;margin-bottom:8px;line-height:1.5}
+.pista-zoom strong{font-size:20px;margin-bottom:9px;line-height:1.25}
+.pista-zoom p{font-size:13px;line-height:1.53;color:#d2d2d2}
+.pista-zoom p b{color:white;font-weight:700}
+.pista-zoom .pista-nota{font-size:11.5px;color:#9c9c9c;line-height:1.48;margin-top:10px}
+.pista-zoom button{top:10px;right:12px;width:32px;height:32px;font-size:24px;display:grid;place-items:center}
+@media(max-width:780px){
+  .pista-zoom{bottom:calc(76px + max(12px,env(safe-area-inset-bottom)));
+    width:calc(100vw - 28px);max-height:min(35dvh,285px);overflow:auto;padding:13px 42px 13px 15px}
+  .pista-zoom strong{font-size:16px;margin-bottom:6px}
+  .pista-zoom small{font-size:9px;margin-bottom:5px}
+  .pista-zoom p{font-size:12px;line-height:1.4}
+  .pista-zoom .pista-nota{font-size:10px;margin-top:6px}
+}
+@media(max-width:780px) and (max-height:640px){
+  .pista-zoom{bottom:68px;max-height:calc(100dvh - 148px)}
+}
+
 </style>
 </head>
 <body>
@@ -439,15 +622,30 @@ body{font-family:var(--tipo)}
         <button type="button" class="portada-cta intro-entrar">Explorar la visualización&nbsp; ↗</button>
         <button type="button" class="portada-secundario" id="ver-metodologia">Sobre los datos</button>
       </div>
+      <div class="portada-mobile-text" aria-label="Presentación breve">
+        <p>Al 31 de diciembre de 2024, <strong>120.700 personas</strong> estaban alojadas en establecimientos penitenciarios de Argentina.</p>
+        <p>Desde lejos, una misma estructura. De cerca, <strong>personas con trayectorias distintas.</strong></p>
+      </div>
       <div class="portada-copy">
         <p>Al 31 de diciembre de 2024, <strong>120.700 personas</strong> estaban alojadas en establecimientos penitenciarios de Argentina. La cifra permite dimensionar el encarcelamiento, pero dice poco sobre quienes están detrás de ella.</p>
         <p>Cuando hablamos de personas presas, muchas veces las pensamos como un grupo homogéneo. Sin embargo, cada una llegó a la cárcel con una trayectoria distinta y atraviesa el encierro de una manera particular.</p>
         <p>Este proyecto utiliza los microdatos del SNEEP 2024 para mostrar esa diversidad. <strong>Cada ladrillo representa un registro individual.</strong> Desde lejos, todos forman una misma estructura. Al acercarse, aparecen diferencias en edad, educación, situación judicial, trabajo y vínculos.</p>
         <p>El objetivo no es explicar por qué una persona terminó presa, sino cambiar la forma en que miramos a quienes integran esa estadística.</p>
       </div>
+      <button class="portada-conocer" id="ver-proyecto" type="button" aria-haspopup="dialog">Leer el proyecto <span aria-hidden="true">↗</span></button>
       <div class="portada-principio">Los datos no cuentan historias de vida completas. Nos permiten observar características individuales y, al mismo tiempo, reconocer todo lo que queda fuera del registro estadístico.</div>
     </main>
     <div class="portada-espacio" aria-hidden="true"></div>
+  </div>
+  <div class="proyecto-modal" id="proyecto-modal" hidden role="dialog" aria-modal="true" aria-labelledby="proyecto-titulo">
+    <div class="proyecto-dialogo" tabindex="-1">
+      <div class="proyecto-cabecera">
+        <div><p class="proyecto-etiqueta">EL PROYECTO</p><h2 id="proyecto-titulo">ARTÍCULO 18</h2></div>
+        <button type="button" class="proyecto-cerrar" id="proyecto-cerrar" aria-label="Cerrar proyecto">×</button>
+      </div>
+      <div class="proyecto-texto" id="proyecto-texto"></div>
+      <div class="proyecto-nota" id="proyecto-nota"></div>
+    </div>
   </div>
   <div class="datos-modal" id="datos-modal" hidden role="dialog" aria-modal="true" aria-labelledby="datos-titulo">
     <div class="datos-dialogo" tabindex="-1">
@@ -466,7 +664,16 @@ body{font-family:var(--tipo)}
       </section>
       <section>
         <h3>Origen y procesamiento de los datos</h3>
-        <p>Partimos de una versión preparada de los microdatos del SNEEP 2024. Los registros están organizados por establecimiento y provincia, con atributos recodificados en categorías comparables. La versión final documentará las operaciones de limpieza, validación y transformación.</p>
+        <p>Esta visualización utiliza los microdatos del Sistema Nacional de Estadísticas sobre Ejecución de la Pena (SNEEP) correspondientes a 2024. La base fue procesada en <strong>R, utilizando RStudio</strong> como entorno de trabajo. Los registros están organizados por establecimiento penitenciario y provincia, y sus atributos fueron recodificados en categorías comparables para facilitar la exploración.</p>
+        <p>Cada ladrillo del muro corresponde a un registro individual. Las características que se muestran describen la situación registrada al 31 de diciembre de 2024 y no constituyen una biografía de la persona.</p>
+      </section>
+      <section>
+        <h3>Investigaciones relacionadas</h3>
+        <p>Los datos del SNEEP también fueron utilizados como fuente en otras investigaciones en las que participé. Estos trabajos abordan preguntas diferentes y pueden emplear relevamientos de años distintos al de esta visualización:</p>
+        <ul class="datos-investigaciones">
+          <li><a href="https://repositorio.udesa.edu.ar/items/9c88212c-2df0-4302-88ab-18fc0625f96e" target="_blank" rel="noopener noreferrer">Mi tesis de maestría, Universidad de San Andrés <span aria-hidden="true">↗</span></a></li>
+          <li><a href="https://publications.iadb.org/publications/english/document/Understanding-and-Predicting-Recidivism-in-Latin-America---A-Machine-Learning-Approach.pdf" target="_blank" rel="noopener noreferrer"><em>Understanding and Predicting Recidivism in Latin America: A Machine Learning Approach</em>, documento de trabajo del BID (2026) <span aria-hidden="true">↗</span></a></li>
+        </ul>
       </section>
       <section>
         <h3>Alcance y límites del relevamiento</h3>
@@ -475,7 +682,7 @@ body{font-family:var(--tipo)}
       <section>
         <h3>Privacidad y navegación</h3>
         <p>Las fichas muestran datos categóricos y algunos campos reservados para reducir el riesgo de identificación. El tratamiento requiere una revisión de privacidad antes de publicar.</p>
-        <p>En la visualización, acercate con la rueda del mouse o el botón + y seleccioná un ladrillo para conocer sus características.</p>
+        <p>Al entrar se muestra el muro completo. Cada ladrillo representa un registro individual del SNEEP 2024. Hacé zoom para distinguirlos y elegí uno para consultar las características disponibles. En el celular, podés acercarte con dos dedos.</p>
       </section>
       <section>
         <h3>¿Por qué ARTÍCULO 18?</h3>
@@ -492,7 +699,7 @@ body{font-family:var(--tipo)}
 </div>
 
 <div class="buscador">
-  <input id="q" type="search" placeholder="Buscar una cárcel o una provincia…" autocomplete="off">
+  <input id="q" type="search" placeholder="Buscar una cárcel" autocomplete="off">
   <div class="sugerencias" id="sug"></div>
 </div>
 
@@ -528,9 +735,10 @@ body{font-family:var(--tipo)}
 
 <div class="pista-zoom" id="pista-zoom" role="status" aria-live="polite">
   <button id="cerrar-pista" aria-label="Cerrar indicación de navegación" type="button">×</button>
-  <small>Vista general · SNEEP 2024</small>
-  <strong>Acercate: cada ladrillo es una persona.</strong>
-  <p>Usá la rueda del mouse, los dedos o el botón +. Después, hacé clic en un ladrillo para ver su ficha.</p>
+  <small>Estás viendo el muro completo · SNEEP 2024</small>
+  <strong>120.700 personas. 120.700 ladrillos.</strong>
+  <p>Cada ladrillo representa un registro individual. <b>Acercate</b> para distinguirlos y <b>seleccioná uno</b> para consultar sus características.</p>
+  <p class="pista-nota">Los datos muestran algunos aspectos de cada persona, no su historia completa.</p>
 </div>
 
 <div class="leyenda" id="leyenda"></div>
@@ -1341,6 +1549,31 @@ window.addEventListener('keydown',e=>{
   if(e.key==='Escape'&&!modalDatos.hidden){e.preventDefault();cerrarModalDatos()}
   if(e.key==='Tab'&&!modalDatos.hidden){
     const focos=[...modalDatos.querySelectorAll('button,a[href]')];
+    if(!focos.length)return;
+    if(e.shiftKey&&document.activeElement===focos[0]){e.preventDefault();focos[focos.length-1].focus()}
+    if(!e.shiftKey&&document.activeElement===focos[focos.length-1]){e.preventDefault();focos[0].focus()}
+  }
+});
+/* En celulares el texto completo se consulta sin forzar scroll en la portada. */
+if (window.matchMedia('(pointer:coarse)').matches){
+  document.querySelector('#pista-zoom p').innerHTML =
+    'Cada ladrillo representa un registro individual. <b>Separá dos dedos</b> para acercarte y <b>tocá un ladrillo</b> para consultar sus características.';
+}
+const modalProyecto = document.getElementById('proyecto-modal');
+const abrirProyectoBtn = document.getElementById('ver-proyecto');
+const cerrarProyectoBtn = document.getElementById('proyecto-cerrar');
+document.getElementById('proyecto-texto').innerHTML = document.querySelector('#portada .portada-copy').innerHTML;
+document.getElementById('proyecto-nota').innerHTML = document.querySelector('#portada .portada-principio').innerHTML;
+function abrirProyecto(){modalProyecto.hidden = false;cerrarProyectoBtn.focus()}
+function cerrarProyecto(){if(modalProyecto.hidden)return;modalProyecto.hidden=true;abrirProyectoBtn.focus()}
+abrirProyectoBtn.addEventListener('click',abrirProyecto);
+cerrarProyectoBtn.addEventListener('click',cerrarProyecto);
+modalProyecto.addEventListener('click',e=>{if(e.target===modalProyecto)cerrarProyecto()});
+window.addEventListener('keydown',e=>{
+  if(modalProyecto.hidden)return;
+  if(e.key==='Escape'){e.preventDefault();cerrarProyecto()}
+  if(e.key==='Tab'){
+    const focos=[...modalProyecto.querySelectorAll('button,a[href]')];
     if(!focos.length)return;
     if(e.shiftKey&&document.activeElement===focos[0]){e.preventDefault();focos[focos.length-1].focus()}
     if(!e.shiftKey&&document.activeElement===focos[focos.length-1]){e.preventDefault();focos[0].focus()}
