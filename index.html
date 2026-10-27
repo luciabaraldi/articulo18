@@ -600,6 +600,82 @@ canvas#lienzo{touch-action:none}
   .pista-zoom{bottom:68px;max-height:calc(100dvh - 148px)}
 }
 
+
+/* ARTÍCULO 18: introducción editorial al muro. Mantiene el diseño del resto de la experiencia. */
+.pista-zoom{
+  width:min(650px,calc(100vw - 40px));
+  padding:0;
+  bottom:clamp(22px,5.5vh,58px);
+  border:1px solid #5c5c5c;
+  border-radius:9px;
+  background:rgba(7,7,7,.985);
+  box-shadow:0 18px 65px #000e;
+  max-height:calc(100dvh - 100px);
+  overflow:hidden;
+}
+.pista-zoom-contenido{
+  padding:24px 37px 25px 27px;
+  max-height:calc(100dvh - 102px);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scrollbar-color:#555 transparent;
+  scrollbar-width:thin;
+}
+.pista-zoom small{
+  max-width:calc(100% - 24px);
+  font-size:10.5px;
+  letter-spacing:.14em;
+  line-height:1.45;
+  margin-bottom:11px;
+  color:#aaa;
+}
+.pista-zoom strong{
+  font-size:23px;
+  letter-spacing:-.04em;
+  line-height:1.24;
+  font-weight:700;
+  margin-bottom:17px;
+}
+.pista-zoom p{
+  font-size:13.5px;
+  line-height:1.62;
+  color:#c6c6c6;
+  margin:0 0 13px;
+}
+.pista-zoom p:last-child{margin-bottom:0}
+.pista-zoom p b{color:#f6f6f6;font-weight:700}
+.pista-zoom button{
+  z-index:2;
+  position:absolute;
+  top:11px;right:11px;
+  width:36px;height:36px;
+  color:#d2d2d2;
+  background:#070707;
+  border-radius:5px;
+  font-size:25px;
+}
+.pista-zoom button:hover,.pista-zoom button:focus-visible{color:white;background:#202020}
+@media (max-width:780px){
+ .pista-zoom{
+   bottom:calc(74px + max(10px,env(safe-area-inset-bottom)));
+   width:calc(100vw - 26px);
+   max-height:min(67dvh,590px);
+   border-radius:10px;
+ }
+ .pista-zoom-contenido{
+   max-height:min(67dvh,590px);
+   padding:18px 25px 20px 19px;
+ }
+ .pista-zoom small{font-size:9px;letter-spacing:.11em;margin-bottom:9px;max-width:calc(100% - 28px)}
+ .pista-zoom strong{font-size:19px;line-height:1.24;margin-bottom:14px}
+ .pista-zoom p{font-size:13px;line-height:1.52;margin-bottom:12px}
+ .pista-zoom button{top:8px;right:8px;width:34px;height:34px}
+}
+@media (max-width:780px) and (max-height:640px){
+ .pista-zoom{bottom:68px;max-height:calc(100dvh - 145px)}
+ .pista-zoom-contenido{max-height:calc(100dvh - 145px)}
+}
+
 </style>
 </head>
 <body>
@@ -733,12 +809,16 @@ canvas#lienzo{touch-action:none}
 </div>
 
 
-<div class="pista-zoom" id="pista-zoom" role="status" aria-live="polite">
-  <button id="cerrar-pista" aria-label="Cerrar indicación de navegación" type="button">×</button>
-  <small>Estás viendo el muro completo · SNEEP 2024</small>
-  <strong>120.700 personas. 120.700 ladrillos.</strong>
-  <p>Cada ladrillo representa un registro individual. <b>Acercate</b> para distinguirlos y <b>seleccioná uno</b> para consultar sus características.</p>
-  <p class="pista-nota">Los datos muestran algunos aspectos de cada persona, no su historia completa.</p>
+<div class="pista-zoom" id="pista-zoom" role="dialog" aria-modal="false" aria-label="Introducción a la visualización">
+  <button id="cerrar-pista" aria-label="Cerrar introducción" type="button">×</button>
+  <div class="pista-zoom-contenido">
+    <small>A ESTA DISTANCIA, LAS DIFERENCIAS NO SE VEN.</small>
+    <strong>120.700 personas. 120.700 ladrillos.</strong>
+    <p>Las estadísticas nos permiten dimensionar el encarcelamiento, pero una cifra no alcanza para comprender a quienes forman parte de ella. Cuando hablamos de personas privadas de libertad, muchas veces las pensamos como un grupo homogéneo, dejando de lado las diferencias en sus trayectorias y circunstancias.</p>
+    <p>Este muro reproduce esa mirada. Desde lejos, todos los ladrillos parecen iguales. Sin embargo, cada uno representa a una persona con características propias.</p>
+    <p><b>Acercate con el zoom y seleccioná un ladrillo</b> para explorar la información disponible sobre esa persona.</p>
+    <p>Los registros permiten observar algunas diferencias, pero también tienen límites: conocer la edad, la educación o la situación judicial de alguien no significa conocer su historia ni comprender las circunstancias que lo llevaron a la cárcel.</p>
+  </div>
 </div>
 
 <div class="leyenda" id="leyenda"></div>
@@ -1554,11 +1634,7 @@ window.addEventListener('keydown',e=>{
     if(!e.shiftKey&&document.activeElement===focos[focos.length-1]){e.preventDefault();focos[0].focus()}
   }
 });
-/* En celulares el texto completo se consulta sin forzar scroll en la portada. */
-if (window.matchMedia('(pointer:coarse)').matches){
-  document.querySelector('#pista-zoom p').innerHTML =
-    'Cada ladrillo representa un registro individual. <b>Separá dos dedos</b> para acercarte y <b>tocá un ladrillo</b> para consultar sus características.';
-}
+/* El texto introductorio del muro se conserva íntegro en todos los dispositivos. */
 const modalProyecto = document.getElementById('proyecto-modal');
 const abrirProyectoBtn = document.getElementById('ver-proyecto');
 const cerrarProyectoBtn = document.getElementById('proyecto-cerrar');
